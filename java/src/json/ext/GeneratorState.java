@@ -428,12 +428,12 @@ public class GeneratorState extends RubyObject {
     }
 
     public int getDepth() {
-        return depth;
+        return depth < 0 ? 0 : depth;
     }
 
     @JRubyMethod(name="depth")
     public RubyInteger depth_get(ThreadContext context) {
-        return context.getRuntime().newFixnum(depth);
+        return context.getRuntime().newFixnum(getDepth());
     }
 
     @JRubyMethod(name="depth=")
@@ -521,11 +521,12 @@ public class GeneratorState extends RubyObject {
     public int increaseDepth() {
         depth++;
         checkMaxNesting();
-        return depth;
+        return getDepth();
     }
 
     public int decreaseDepth() {
-        return --depth;
+        depth--;
+        return getDepth();
     }
 
     /**
