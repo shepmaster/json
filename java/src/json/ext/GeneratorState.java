@@ -524,8 +524,16 @@ public class GeneratorState extends RubyObject {
         return depth;
     }
 
-    public int decreaseDepth() {
-        return --depth;
+    /*
+     * This is an ugly method that breaks
+     * encapsulation. Unfortunately, poor interaction between
+     * ActiveSupport and us causes the depth to get clobbered back to
+     * zero. Local variables save us the same way the C-extension is
+     * safe.
+     */
+    public int decreaseDepthFrom(int depth) {
+        this.depth = depth - 1;
+        return getDepth();
     }
 
     /**

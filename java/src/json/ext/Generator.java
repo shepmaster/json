@@ -295,7 +295,7 @@ public final class Generator {
                     handler.generate(session, element, buffer);
                 }
 
-                state.decreaseDepth();
+                state.decreaseDepthFrom(depth);
                 if (arrayNl.length() != 0) {
                     buffer.append(arrayNl);
                     buffer.append(shift, 0, state.getDepth() * indentUnit.length());
@@ -358,7 +358,7 @@ public final class Generator {
                         session.infectBy(value);
                     }
                 });
-                state.decreaseDepth();
+                state.decreaseDepthFrom(depth);
                 if (objectNl.length() != 0) {
                     buffer.append(objectNl);
                     buffer.append(Utils.repeat(state.getIndent(), state.getDepth()));
